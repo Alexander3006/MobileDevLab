@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {View, Text, Image, Linking} from "react-native";
 
 export const About = () => {
@@ -13,7 +13,7 @@ export const About = () => {
                 maxHeight: 200,
                 resizeMode: 'contain'
             }}
-            source={require('../../public/Rick.png')}/>
+            source={require('../../public/img/rick.png')}/>
 
             <Text style={{
                 color: 'white',
