@@ -7,14 +7,16 @@ import {Diagram} from "../components/Diagram";
 
 const styles = StyleSheet.create({
     control: {
-        width: '80%',
+        width: 300,
         maxWidth: '90%',
-        marginBottom: '5%',
+        marginTop: 10,
+        marginBottom: 16,
     },
     view: {
         flex: 1,
+        maxHeight: "95%",
         alignItems: 'center',
-        padding: "5%",
+        padding: 10,
     }
 })
 
@@ -22,7 +24,6 @@ const sin = (x: number) => Math.sin(x);
 
 export const Graphics = () => {
     const [activeComponent, setActiveComponent] = useState(0);
-    const {width, height} = Dimensions.get("window")
     return(
         <View style={styles.view}>
             <SegmentedControl
@@ -34,7 +35,7 @@ export const Graphics = () => {
                 }}/>
             {
                 [
-                    <Plot func={sin} interval={0.1} max={6.28} min={-6.28} height={height/5} width={width * 0.8}/>,
+                    <Plot func={sin} interval={0.1} max={6.28} min={-6.28} height={200} width={320}/>,
                     <Diagram/>
                 ][activeComponent]
             }

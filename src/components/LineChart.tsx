@@ -29,11 +29,12 @@ const pointsToSVGPattern = (points: Point[], startX:number, startY:number, scale
 }
 
 export const LineChart = ({points, width: screenWidth, height: screenHeight}: LineChartProps) => {
+    const padding = 4;
     const startY = screenHeight / 2;
     const startX = screenWidth / 2;
     const {extremeX, extremeY} = getExtremeValues(points);
-    const scaleX = -startX / extremeX;
-    const scaleY = -startY / extremeY;
+    const scaleX = -startX / extremeX + padding;
+    const scaleY = -startY / extremeY + padding;
     const chartPointsSvg = pointsToSVGPattern(points, startX, startY, scaleX, scaleY);
     return (
         <Svg
@@ -44,7 +45,7 @@ export const LineChart = ({points, width: screenWidth, height: screenHeight}: Li
             <Line x1={0} y1={startY} x2={screenWidth} y2={startY} stroke="blue" strokeWidth="3"/>
             <Circle cx={startX} cy={startY} r={3} fill={'red'}></Circle>
             <Circle cx={startX - scaleX} cy={startY} r={3} fill={'red'}></Circle>
-            <Circle cx={startX} cy={startY + scaleX} r={3} fill={'red'}></Circle>
+            <Circle cx={startX} cy={startY + scaleY} r={3} fill={'red'}></Circle>
 
             <Polyline
                points={chartPointsSvg}

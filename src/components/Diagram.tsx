@@ -29,7 +29,5 @@ export const Diagram = () => {
     height: 320,
     maxHeight: '80%',
     width: 400,
-    padding: 10,
-    marginTop: 10,
   }}></PieChart>
 };
