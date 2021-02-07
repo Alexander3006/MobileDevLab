@@ -27,6 +27,7 @@ export const Diagram = () => {
 
   return <PieChart data={data} innerRadius={'50%'} style={{
     height: 320,
+    maxHeight: '80%',
     width: 400,
     padding: 10,
     marginTop: 10,

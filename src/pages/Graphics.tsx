@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Dimensions, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import {Plot} from "../components/Plot";
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import {useState} from "react";
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     control: {
         width: '80%',
         maxWidth: '90%',
-        marginBottom: '10%',
+        marginBottom: '5%',
     },
     view: {
         flex: 1,
