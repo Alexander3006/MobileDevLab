@@ -13,7 +13,7 @@ export const About = () => {
                 maxHeight: 200,
                 resizeMode: 'contain'
             }}
-            source={require('../../public/img/rick.png')}/>
+            source={require('../../public/icons/rick.png')}/>
 
             <Text style={{
                 color: 'white',

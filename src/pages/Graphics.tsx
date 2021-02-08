@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Dimensions, StyleSheet, View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {Plot} from "../components/Plot";
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import {useState} from "react";
