@@ -38,9 +38,11 @@ export const BooksList = ({books, navigation, deleteBook}: BooksListProps) => {
   let swiped: Array<any> = [];
 
   const renderItem = ({item, index}: ListRenderItemInfo<BookItemProps>) => {
+
     const onDelete = () => {
-      deleteBook(index);
       swiped[index]?.close();
+      swiped[index] = null;
+      deleteBook(index);
     };
 
     return (
