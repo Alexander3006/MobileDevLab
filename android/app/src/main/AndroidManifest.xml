@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.mobiledevlab">
+  package="ua.kpi.comsys.ip8317">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

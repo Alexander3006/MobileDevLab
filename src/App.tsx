@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { BottomNavigation} from 'react-native-paper';
+import { BottomNavigation } from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native'
 import {About} from "./pages/About";
 import {Graphics} from "./pages/Graphics";
-import {BooksList} from "./pages/BooksList";
+import {Books} from "./pages/Books";
 
 const App = () => {
   const [index, setIndex] = React.useState(0);
@@ -15,18 +16,20 @@ const App = () => {
   const renderScene = BottomNavigation.SceneMap({
       about: About,
       graphics: Graphics,
-      books: BooksList,
+      books: Books,
   });
 
   return (
-      <BottomNavigation
+      <NavigationContainer>
+        <BottomNavigation
           navigationState={{ index, routes }}
           onIndexChange={setIndex}
           renderScene={renderScene}
           barStyle = {{
             backgroundColor: 'purple',
           }}
-      />
+        />
+      </NavigationContainer>
   );
 };
 
