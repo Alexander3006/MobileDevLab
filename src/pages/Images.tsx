@@ -1,11 +1,6 @@
 import * as React from 'react';
 import {
-  Dimensions,
   FlatList,
-  Image,
-  StyleSheet,
-  View,
-  Alert,
 } from 'react-native';
 import {Header} from 'react-native-elements';
 import {useState} from 'react';
@@ -46,17 +41,9 @@ export const Images = () => {
       />
       <FlatList
         data={images}
-        style={styles.container}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
       />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: 'red',
-  },
-});
