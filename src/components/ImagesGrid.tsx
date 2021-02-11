@@ -1,5 +1,6 @@
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 import * as React from 'react';
+import {Image} from 'react-native-elements';
 
 const groupImages = (
   images: [],
@@ -22,6 +23,7 @@ const groupImages = (
         key={index}
         source={{uri: image}}
         style={{width: imgSize, height: imgSize, ...styles.image}}
+        PlaceholderContent={<ActivityIndicator size={'large'} color="purple" />}
       />
     );
     if (index < mid) leftImage.push(imageElem);
@@ -54,5 +56,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     borderWidth: 2,
     borderColor: 'white',
+    resizeMode: 'contain',
   },
 });

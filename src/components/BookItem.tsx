@@ -1,18 +1,11 @@
 import * as React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import {BooksImages} from '../../public/images';
+import {BookDto} from '../infrastructure/books.api';
 
-export interface BookItemProps {
-  title: string;
-  subtitle: string;
-  price: string;
-  image: string;
-}
-
-export const BookItem = ({title, subtitle, price, image}: BookItemProps) => {
+export const BookItem = ({title, subtitle, price, image}: BookDto) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={BooksImages[image]}></Image>
+      <Image style={styles.image} source={{uri: image}}></Image>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
