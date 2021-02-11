@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {
-  FlatList,
-} from 'react-native';
+import {ActivityIndicator, FlatList} from 'react-native';
 import {Header} from 'react-native-elements';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {ImagesGrid} from '../components/ImagesGrid';
 import ImagePicker from 'react-native-image-picker';
+import {getImagesByReq} from '../infrastructure/images.api';
 
 const chooseImage = (addImage: (a: string) => void) => {
   const options = {
@@ -18,8 +17,23 @@ const chooseImage = (addImage: (a: string) => void) => {
 };
 
 export const Images = () => {
-  const [images, setImages] = useState<string[][]>([[]]);
-
+  const [images, setImages] = useState<string[][]>([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const img = await getImagesByReq();
+        const chunk_size = 7;
+        const chunks = img
+          .map((_: any, i: number) =>
+            i % chunk_size === 0 ? img.slice(i, i + chunk_size) : null,
+          )
+          .filter((e: any) => e);
+        setImages(chunks);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
   const addImage = (image: string) => {
     const lastImageSet = images.pop() ?? [];
     if (lastImageSet.length < 7) {
@@ -43,6 +57,13 @@ export const Images = () => {
         data={images}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
+        ListEmptyComponent={
+          <ActivityIndicator
+            size={'large'}
+            color={'purple'}
+            style={{marginTop: 30}}
+          />
+        }
       />
     </>
   );

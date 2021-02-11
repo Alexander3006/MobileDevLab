@@ -1,11 +1,18 @@
 import * as React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {BooksImages} from '../../../public/images';
-import {books} from '../../../public/books';
+import {useEffect, useState} from 'react';
+import {AboutBookDto, getBookById} from '../../infrastructure/books.api';
 
 export const AboutBook = ({route}: any) => {
+  const [book, setBook] = useState<AboutBookDto>(new AboutBookDto());
   const {isbn13} = route.params;
-  const book = books[isbn13] ?? {};
+  useEffect(() => {
+    if (!isbn13) return;
+    (async () => {
+      const book = await getBookById(isbn13);
+      setBook(book ?? new AboutBookDto());
+    })();
+  }, [isbn13]);
   const {
     title,
     subtitle,
@@ -18,11 +25,17 @@ export const AboutBook = ({route}: any) => {
     price,
     image,
   } = book;
-  const img = BooksImages[image];
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Image style={styles.image} source={img} />
+        <Image
+          style={styles.image}
+          source={{
+            uri: image?.length
+              ? image
+              : '../../../public/images/default_book.jpeg',
+          }}
+        />
       </View>
       <View style={styles.textGroup}>
         <Text>{`Title: ${title ?? ''}`}</Text>

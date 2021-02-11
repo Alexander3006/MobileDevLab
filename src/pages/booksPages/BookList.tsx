@@ -8,14 +8,15 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
-import {BookItem, BookItemProps} from '../../components/BookItem';
+import {BookItem} from '../../components/BookItem';
 import {NavigationScreenProp, NavigationState} from 'react-navigation';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {SearchBar} from 'react-native-elements';
 import {Swipeable} from 'react-native-gesture-handler';
+import {BookDto, getBooksByReq} from '../../infrastructure/books.api';
 
 export interface BooksListProps {
-  books: BookItemProps[];
+  books: BookDto[];
   navigation: NavigationScreenProp<NavigationState>;
   deleteBook: (index: number) => void;
 }
@@ -33,24 +34,37 @@ const swipeAction = (onPressAction: () => void) => (
 );
 
 export const BooksList = ({books, navigation, deleteBook}: BooksListProps) => {
-  const [searchState, setSearchState] = useState('');
+  const [searchString, setSearchString] = useState('');
+  const [booksFound, setBooksFound] = useState<BookDto[]>([]);
 
+  useEffect(() => {
+    if (searchString.length < 3) {
+      setBooksFound([]);
+      return;
+    }
+    (async () => {
+      const books = (await getBooksByReq(searchString)) ?? [];
+      setBooksFound(books);
+    })();
+  }, [searchString]);
+
+  //renderItem
   let swiped: Array<any> = [];
-
-  const renderItem = ({item, index}: ListRenderItemInfo<BookItemProps>) => {
-
+  const renderItem = (
+    {item, index}: ListRenderItemInfo<BookDto>,
+    on: boolean,
+  ) => {
     const onDelete = () => {
       swiped[index]?.close();
       swiped[index] = null;
       deleteBook(index);
     };
-
     return (
       <Swipeable
         friction={2}
         key={index}
         ref={(ref) => (swiped[index] = ref)}
-        renderRightActions={() => swipeAction(onDelete)}>
+        renderRightActions={() => (on ? swipeAction(onDelete) : <></>)}>
         <TouchableHighlight
           onPress={() => navigation.navigate('AboutBook', {...item})}>
           <BookItem {...item} />
@@ -62,16 +76,14 @@ export const BooksList = ({books, navigation, deleteBook}: BooksListProps) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        onChangeText={setSearchState}
-        value={searchState}
+        onChangeText={setSearchString}
+        value={searchString}
         placeholder={'Enter title'}
         platform={'android'}
       />
       <FlatList
-        data={books.filter(({title}: BookItemProps) =>
-          title.toLowerCase().includes(searchState.toLowerCase()),
-        )}
-        renderItem={renderItem}
+        data={searchString ? booksFound : books}
+        renderItem={(prop) => renderItem(prop, !searchString.length)}
         keyExtractor={(_, index) => index.toString()}
         ListEmptyComponent={ListEmpty}
       />

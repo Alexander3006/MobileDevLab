@@ -6,11 +6,12 @@ import {AddBook} from './booksPages/AddBook';
 import {Header} from 'react-native-elements';
 import {AboutBook} from './booksPages/AboutBook';
 import {books as booksData} from '../../public/books';
+import {BookDto} from '../infrastructure/books.api';
 
 const Stack = createStackNavigator();
 
 export const Books = () => {
-  const [books, setBooks] = useState(booksData.BooksList.books);
+  const [books, setBooks] = useState<BookDto[]>([]);
 
   const deleteBook = (index: number) => {
     const data = Array.from(books);
