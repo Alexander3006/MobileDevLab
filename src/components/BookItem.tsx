@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import {BookDto} from '../infrastructure/books.api';
+import BookDto from '../entities/BookDto';
 
 export const BookItem = ({title, subtitle, price, image}: BookDto) => {
   return (

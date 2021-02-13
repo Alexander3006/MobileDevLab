@@ -13,7 +13,8 @@ import {NavigationScreenProp, NavigationState} from 'react-navigation';
 import {useEffect, useState} from 'react';
 import {SearchBar} from 'react-native-elements';
 import {Swipeable} from 'react-native-gesture-handler';
-import {BookDto, getBooksByReq} from '../../infrastructure/books.api';
+import {getBooks} from '../../services/books.service';
+import BookDto from '../../entities/BookDto';
 
 export interface BooksListProps {
   books: BookDto[];
@@ -43,7 +44,7 @@ export const BooksList = ({books, navigation, deleteBook}: BooksListProps) => {
       return;
     }
     (async () => {
-      const books = (await getBooksByReq(searchString)) ?? [];
+      const books = (await getBooks(searchString)) ?? [];
       setBooksFound(books);
     })();
   }, [searchString]);

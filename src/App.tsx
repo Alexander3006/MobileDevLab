@@ -5,8 +5,9 @@ import {About} from './pages/About';
 import {Graphics} from './pages/Graphics';
 import {Books} from './pages/Books';
 import {Images} from './pages/Images';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
+import initDatabase from "./infrastructure/db/init";
 
 const isPortrait = (width: number, height: number): string =>
   height >= width ? 'portrait' : 'landscape';
@@ -18,6 +19,10 @@ const App = () => {
     const {width, height} = Dimensions.get('screen');
     changeOrientation(isPortrait(width, height));
   });
+
+  useEffect(() => {
+    (async () => await initDatabase())()
+  }, []);
 
   const [index, setIndex] = React.useState(0);
   const routes = [

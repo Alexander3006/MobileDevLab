@@ -4,7 +4,7 @@ import {Header} from 'react-native-elements';
 import {useEffect, useState} from 'react';
 import {ImagesGrid} from '../components/ImagesGrid';
 import ImagePicker from 'react-native-image-picker';
-import {getImagesByReq} from '../infrastructure/images.api';
+import {getImagesByReq} from '../infrastructure/api/images.api';
 
 const chooseImage = (addImage: (a: string) => void) => {
   const options = {

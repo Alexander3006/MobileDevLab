@@ -1,12 +1,11 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {BooksList} from './booksPages/BookList';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {AddBook} from './booksPages/AddBook';
 import {Header} from 'react-native-elements';
 import {AboutBook} from './booksPages/AboutBook';
-import {books as booksData} from '../../public/books';
-import {BookDto} from '../infrastructure/books.api';
+import BookDto from '../entities/BookDto';
 
 const Stack = createStackNavigator();
 

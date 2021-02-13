@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useEffect, useState} from 'react';
-import {AboutBookDto, getBookById} from '../../infrastructure/books.api';
+import AboutBookDto from '../../entities/AboutBookDto';
+import {getBookByIsbn13} from '../../services/books.service';
 
 export const AboutBook = ({route}: any) => {
   const [book, setBook] = useState<AboutBookDto>(new AboutBookDto());
@@ -9,7 +10,7 @@ export const AboutBook = ({route}: any) => {
   useEffect(() => {
     if (!isbn13) return;
     (async () => {
-      const book = await getBookById(isbn13);
+      const book = await getBookByIsbn13(isbn13);
       setBook(book ?? new AboutBookDto());
     })();
   }, [isbn13]);
